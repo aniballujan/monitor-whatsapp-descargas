@@ -113,10 +113,11 @@ h1 { font-size: clamp(32px, 4.4vw, 50px); letter-spacing: -0.025em; }
 .requisitos { font-size: 14px; color: var(--texto-3); margin: 18px 0 0; padding-top: 16px; border-top: 1px solid var(--borde); }
 
 /* Donar */
-.donar { background: var(--texto); color: #fff; padding: 64px 0; }
+.donar { background: var(--verde-suave); padding: 64px 0; border-top: 1px solid #c8ead2; border-bottom: 1px solid #c8ead2; }
 .donar-interior { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
 .donar h2 { font-size: clamp(24px, 3vw, 30px); }
-.donar p { color: rgba(255, 255, 255, 0.75); margin: 12px 0 0; max-width: 620px; }
+.donar h2 { color: var(--verde-oscuro); }
+.donar p { color: var(--texto-2); margin: 12px 0 0; max-width: 620px; }
 .boton.mp { background: var(--mp); border-color: var(--mp); color: #fff; flex-shrink: 0; padding: 15px 26px; }
 .boton.mp:hover { background: #0089c7; }
 
