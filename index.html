@@ -184,23 +184,17 @@
       </p>
       <p class="firma">Aníbal Lujan</p>
 
-      <!-- Cada monto lleva a un link de pago de Mercado Pago con ese importe fijo (data-link).
-           Si un monto no tiene link propio, usa el link general donde se elige el importe. -->
-      <form class="aporte" data-aporte data-link-general="https://link.mercadopago.com.ar/monitorw">
+      <div class="aporte">
         <h3>¿Me ayudás a mantenerla?</h3>
-        <p>Elegí un monto y seguí en Mercado Pago, con el importe ya cargado.</p>
-        <fieldset class="montos">
-          <legend class="oculto">Monto</legend>
-          <label><input type="radio" name="monto" data-link="https://mpago.la/2T8RrxN" checked><span>$2.000</span></label>
-          <label><input type="radio" name="monto" data-link="https://mpago.la/1ksMjAP"><span>$5.000</span></label>
-          <label><input type="radio" name="monto" data-link="https://mpago.la/1oxRG8v"><span>$10.000</span></label>
-          <label><input type="radio" name="monto" data-otro><span>Otro monto</span></label>
-        </fieldset>
-        <a class="boton mp" data-ir-mp href="https://link.mercadopago.com.ar/monitorw" target="_blank" rel="noopener">
-          Continuar a Mercado Pago
-        </a>
-        <p class="nota" data-nota-otro hidden>Vas a poder escribir el monto que quieras en Mercado Pago.</p>
-      </form>
+        <p>Tocá un monto y seguí en Mercado Pago, con el importe ya cargado.</p>
+        <div class="montos">
+          <a class="boton" href="https://mpago.la/2T8RrxN" target="_blank" rel="noopener">$2.000</a>
+          <a class="boton" href="https://mpago.la/1ksMjAP" target="_blank" rel="noopener">$5.000</a>
+          <a class="boton" href="https://mpago.la/1oxRG8v" target="_blank" rel="noopener">$10.000</a>
+          <a class="boton" href="https://link.mercadopago.com.ar/monitorw" target="_blank" rel="noopener">Otro monto</a>
+        </div>
+        <p class="nota">En “Otro monto” escribís el importe que quieras en Mercado Pago.</p>
+      </div>
     </dialog>
 
     <!-- ===== Descargar ===== -->
@@ -314,19 +308,6 @@
       dialogo.querySelector("[data-cerrar-historia]").addEventListener("click", function () { dialogo.close(); });
       // Clic fuera del recuadro: cierra.
       dialogo.addEventListener("click", function (e) { if (e.target === dialogo) dialogo.close(); });
-
-      // Monto elegido -> link de Mercado Pago correspondiente.
-      var aporte = dialogo.querySelector("[data-aporte]");
-      var ir = aporte.querySelector("[data-ir-mp]");
-      var notaOtro = aporte.querySelector("[data-nota-otro]");
-      function actualizar() {
-        var elegido = aporte.querySelector("input[name=monto]:checked");
-        ir.href = (elegido && elegido.getAttribute("data-link")) || aporte.getAttribute("data-link-general");
-        notaOtro.hidden = !(elegido && elegido.hasAttribute("data-otro"));
-      }
-      aporte.addEventListener("change", actualizar);
-      aporte.addEventListener("submit", function (e) { e.preventDefault(); });
-      actualizar();
     })();
 
     // Destaca la descarga del sistema del visitante y avisa si entra desde un celular.

@@ -149,18 +149,9 @@ h1 { font-size: clamp(32px, 4.4vw, 50px); letter-spacing: -0.025em; }
 .aporte { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--borde); }
 .aporte h3 { font-size: 21px; color: var(--verde-oscuro); }
 .aporte > p { margin-top: 6px; }
-.montos { border: 0; padding: 0; margin: 18px 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.montos label { position: relative; cursor: pointer; }
-.montos input { position: absolute; opacity: 0; }
-.montos span {
-  display: block; text-align: center; padding: 12px 6px; border-radius: 10px;
-  border: 1.5px solid var(--borde); font-weight: 600; color: var(--texto); background: #fff;
-  transition: border-color 0.15s, background 0.15s;
-}
-.montos label:hover span { border-color: #b9c2cb; }
-.montos input:checked + span { border-color: var(--mp); background: #e6f6fd; color: #006c9c; }
-.montos input:focus-visible + span { outline: 3px solid #1a73e8; outline-offset: 2px; }
-.aporte .boton.mp { width: 100%; }
+.montos { margin: 18px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.montos .boton { background: var(--mp); border-color: var(--mp); color: #fff; padding: 14px 6px; }
+.montos .boton:hover { background: #0089c7; }
 .aporte .nota { text-align: center; }
 .oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 
