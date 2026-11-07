@@ -152,11 +152,40 @@
             una colaboración ayuda a mantenerla funcionando cuando WhatsApp cambia cosas.
           </p>
         </div>
-        <a class="boton mp" href="https://link.mercadopago.com.ar/monitorw" target="_blank" rel="noopener">
-          Colaborar con Mercado Pago
-        </a>
+        <div class="donar-botones">
+          <a class="boton mp" href="https://link.mercadopago.com.ar/monitorw" target="_blank" rel="noopener">
+            Colaborar con Mercado Pago
+          </a>
+          <button type="button" class="boton" data-abrir-historia>Quién la hizo y por qué</button>
+        </div>
       </div>
     </section>
+
+    <dialog id="historia" class="historia" aria-labelledby="historia-titulo">
+      <button type="button" class="cerrar" data-cerrar-historia aria-label="Cerrar">×</button>
+      <div class="fotos"><img src="img/familia.jpg" alt="Aníbal con su familia" width="900" height="1200" loading="lazy"></div>
+      <h2 id="historia-titulo">Hola, soy Aníbal</h2>
+      <p>Soy desarrollador y papá de cuatro.</p>
+      <p>
+        Cuando nuestro hijo más grande cumplió 13 años, le dimos su primer celular: sin redes sociales, pero con
+        WhatsApp. Conocíamos los peligros, o eso creíamos. Lo que no imaginábamos era lo difícil que iba a ser
+        acompañarlo en un mundo donde todos están conectados todo el tiempo.
+      </p>
+      <p>
+        Pusimos una regla clara: él iba a tener su celular, y nosotros íbamos a tener acceso total a sus
+        conversaciones. Enseguida nos dimos cuenta de que era imposible leerlo todo, y de que si borraba algo,
+        nunca nos íbamos a enterar.
+      </p>
+      <p>
+        Así que hice lo que sé hacer: automatizar. Armé esta aplicación para que revise por mí todo lo que
+        me preocupaba, sin tener que leer miles de mensajes.
+      </p>
+      <p>
+        En casa nos resultó muy efectiva y práctica. Por eso decidimos compartirla, para ayudar a otras
+        familias que están pasando por lo mismo.
+      </p>
+      <p class="firma">Aníbal Lujan</p>
+    </dialog>
 
     <!-- ===== Descargar ===== -->
     <section id="descargar" class="seccion">
@@ -242,6 +271,15 @@
   </footer>
 
   <script>
+    // Ventana "Quién la hizo y por qué".
+    (function () {
+      var dialogo = document.getElementById("historia");
+      document.querySelector("[data-abrir-historia]").addEventListener("click", function () { dialogo.showModal(); });
+      dialogo.querySelector("[data-cerrar-historia]").addEventListener("click", function () { dialogo.close(); });
+      // Clic fuera del recuadro: cierra.
+      dialogo.addEventListener("click", function (e) { if (e.target === dialogo) dialogo.close(); });
+    })();
+
     // Destaca la descarga del sistema del visitante y avisa si entra desde un celular.
     (function () {
       var ua = navigator.userAgent;
