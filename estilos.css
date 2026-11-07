@@ -138,9 +138,31 @@ h1 { font-size: clamp(32px, 4.4vw, 50px); letter-spacing: -0.025em; }
   border: 0; background: var(--fondo-2); font-size: 22px; line-height: 1; cursor: pointer; color: var(--texto-2);
 }
 .historia .cerrar:hover { background: var(--borde); }
+.historia .gracias {
+  margin: 0 40px 18px 0; padding: 10px 14px; border-radius: 10px;
+  background: var(--verde-suave); color: var(--verde-oscuro); font-weight: 600; font-size: 15px;
+}
 .fotos { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 24px; }
 .fotos:empty { display: none; }
 .fotos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 68%; border-radius: 12px; }
+
+.aporte { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--borde); }
+.aporte h3 { font-size: 21px; color: var(--verde-oscuro); }
+.aporte > p { margin-top: 6px; }
+.montos { border: 0; padding: 0; margin: 18px 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.montos label { position: relative; cursor: pointer; }
+.montos input { position: absolute; opacity: 0; }
+.montos span {
+  display: block; text-align: center; padding: 12px 6px; border-radius: 10px;
+  border: 1.5px solid var(--borde); font-weight: 600; color: var(--texto); background: #fff;
+  transition: border-color 0.15s, background 0.15s;
+}
+.montos label:hover span { border-color: #b9c2cb; }
+.montos input:checked + span { border-color: var(--mp); background: #e6f6fd; color: #006c9c; }
+.montos input:focus-visible + span { outline: 3px solid #1a73e8; outline-offset: 2px; }
+.aporte .boton.mp { width: 100%; }
+.aporte .nota { text-align: center; }
+.oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 
 /* Preguntas */
 details { border-bottom: 1px solid var(--borde); padding: 18px 0; }
@@ -164,6 +186,7 @@ details p { color: var(--texto-2); margin: 12px 0 0; font-size: 16px; }
   .donar-interior { flex-direction: column; align-items: flex-start; }
   .donar-botones { width: 100%; }
   .historia { padding: 28px 22px; }
+  .montos { grid-template-columns: 1fr 1fr; }
   .barra nav { display: none; }
 }
 @media (max-width: 560px) {

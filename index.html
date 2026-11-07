@@ -153,16 +153,14 @@
           </p>
         </div>
         <div class="donar-botones">
-          <a class="boton mp" href="https://link.mercadopago.com.ar/monitorw" target="_blank" rel="noopener">
-            Colaborar con Mercado Pago
-          </a>
-          <button type="button" class="boton" data-abrir-historia>Quién la hizo y por qué</button>
+          <button type="button" class="boton mp" data-abrir-historia>Ayudá a Aníbal a mantener la app</button>
         </div>
       </div>
     </section>
 
     <dialog id="historia" class="historia" aria-labelledby="historia-titulo">
       <button type="button" class="cerrar" data-cerrar-historia aria-label="Cerrar">×</button>
+      <p class="gracias" data-gracias hidden>⬇️ ¡Gracias por descargarla! La descarga sigue en tu navegador.</p>
       <div class="fotos"><img src="img/familia.jpg" alt="Aníbal con su familia" width="900" height="1200" loading="lazy"></div>
       <h2 id="historia-titulo">Hola, soy Aníbal</h2>
       <p>Soy desarrollador y papá de cuatro.</p>
@@ -185,6 +183,24 @@
         familias que están pasando por lo mismo.
       </p>
       <p class="firma">Aníbal Lujan</p>
+
+      <!-- Cada monto lleva a un link de pago de Mercado Pago con ese importe fijo (data-link).
+           Si un monto no tiene link propio, usa el link general donde se elige el importe. -->
+      <form class="aporte" data-aporte data-link-general="https://link.mercadopago.com.ar/monitorw">
+        <h3>¿Me ayudás a mantenerla?</h3>
+        <p>Elegí un monto y seguí en Mercado Pago, con el importe ya cargado.</p>
+        <fieldset class="montos">
+          <legend class="oculto">Monto</legend>
+          <label><input type="radio" name="monto" data-link="https://mpago.la/2T8RrxN" checked><span>$2.000</span></label>
+          <label><input type="radio" name="monto" data-link="https://mpago.la/1ksMjAP"><span>$5.000</span></label>
+          <label><input type="radio" name="monto" data-link="https://mpago.la/1oxRG8v"><span>$10.000</span></label>
+          <label><input type="radio" name="monto" data-otro><span>Otro monto</span></label>
+        </fieldset>
+        <a class="boton mp" data-ir-mp href="https://link.mercadopago.com.ar/monitorw" target="_blank" rel="noopener">
+          Continuar a Mercado Pago
+        </a>
+        <p class="nota" data-nota-otro hidden>Vas a poder escribir el monto que quieras en Mercado Pago.</p>
+      </form>
     </dialog>
 
     <!-- ===== Descargar ===== -->
@@ -274,10 +290,43 @@
     // Ventana "Quién la hizo y por qué".
     (function () {
       var dialogo = document.getElementById("historia");
-      document.querySelector("[data-abrir-historia]").addEventListener("click", function () { dialogo.showModal(); });
+      var gracias = dialogo.querySelector("[data-gracias]");
+      document.querySelector("[data-abrir-historia]").addEventListener("click", function () {
+        gracias.hidden = true;
+        dialogo.showModal();
+      });
+
+      // Al apretar "Descargar", la descarga arranca y a los 2 segundos se abre la ventana (una vez por visita).
+      // La página no puede saber cuándo termina la descarga: eso lo maneja el navegador.
+      var yaMostrada = false;
+      document.querySelectorAll('a[href*="/releases/latest/download/"]').forEach(function (a) {
+        a.addEventListener("click", function () {
+          if (yaMostrada) return;
+          yaMostrada = true;
+          setTimeout(function () {
+            if (dialogo.open) return;
+            gracias.hidden = false;
+            dialogo.scrollTop = 0;
+            dialogo.showModal();
+          }, 2000);
+        });
+      });
       dialogo.querySelector("[data-cerrar-historia]").addEventListener("click", function () { dialogo.close(); });
       // Clic fuera del recuadro: cierra.
       dialogo.addEventListener("click", function (e) { if (e.target === dialogo) dialogo.close(); });
+
+      // Monto elegido -> link de Mercado Pago correspondiente.
+      var aporte = dialogo.querySelector("[data-aporte]");
+      var ir = aporte.querySelector("[data-ir-mp]");
+      var notaOtro = aporte.querySelector("[data-nota-otro]");
+      function actualizar() {
+        var elegido = aporte.querySelector("input[name=monto]:checked");
+        ir.href = (elegido && elegido.getAttribute("data-link")) || aporte.getAttribute("data-link-general");
+        notaOtro.hidden = !(elegido && elegido.hasAttribute("data-otro"));
+      }
+      aporte.addEventListener("change", actualizar);
+      aporte.addEventListener("submit", function (e) { e.preventDefault(); });
+      actualizar();
     })();
 
     // Destaca la descarga del sistema del visitante y avisa si entra desde un celular.
