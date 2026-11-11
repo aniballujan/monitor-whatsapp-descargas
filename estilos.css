@@ -187,3 +187,8 @@ details p { color: var(--texto-2); margin: 12px 0 0; font-size: 16px; }
   .portada { padding-top: 48px; }
   .boton { width: 100%; }
 }
+
+/* Contador de descargas, al final de la página */
+.sumate { padding: 56px 0; background: var(--verde-suave); text-align: center; }
+.sumate p { margin: 0 0 20px; font-size: clamp(20px, 2.6vw, 26px); font-weight: 600; letter-spacing: -0.01em; }
+.sumate strong { color: var(--verde-oscuro); font-size: 1.25em; }

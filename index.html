@@ -278,6 +278,14 @@
         </details>
       </div>
     </section>
+
+    <!-- Contador de descargas: se completa con los números de GitHub (donde ya está alojada la página). -->
+    <section class="sumate" data-contador hidden>
+      <div class="contenedor">
+        <p>Sumate a las <strong data-cantidad></strong> familias que ya descargaron De Cerca</p>
+        <a class="boton primario" href="#descargar">Descargar gratis</a>
+      </div>
+    </section>
   </main>
 
   <footer class="pie">
@@ -288,6 +296,26 @@
   </footer>
 
   <script>
+    // Contador de descargas: suma los instaladores (.dmg y .exe) de todas las versiones.
+    // No cuenta las consultas de actualización (latest.yml, .blockmap). Si falla o hay menos de MINIMO, no se muestra.
+    (function () {
+      var MINIMO = 50; // con menos descargas la franja no se muestra
+      fetch("https://api.github.com/repos/aniballujan/monitor-whatsapp-descargas/releases?per_page=100")
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (versiones) {
+          var total = 0;
+          versiones.forEach(function (v) {
+            v.assets.forEach(function (a) {
+              if (/\.(dmg|exe)$/.test(a.name)) total += a.download_count;
+            });
+          });
+          if (total < MINIMO) return;
+          document.querySelector("[data-cantidad]").textContent = total.toLocaleString("es-AR");
+          document.querySelector("[data-contador]").hidden = false;
+        })
+        .catch(function () {});
+    })();
+
     // Ventana "Quién la hizo y por qué".
     (function () {
       var dialogo = document.getElementById("historia");
