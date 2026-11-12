@@ -1,6 +1,6 @@
 {
   "_como_usar": "Archivo que lee De Cerca cada 6 horas. categorias: palabras que se SUMAN en cada compu (las que el usuario borró no vuelven). ultimaVersion: muestra el aviso de versión nueva. versionMinima: las versiones más viejas dejan de monitorear hasta actualizar. ayuda: cada cuántos días aparece la ventana de colaborar.",
-  "ultimaVersion": "0.3.1",
+  "ultimaVersion": "0.3.2",
   "versionMinima": "0.3.1",
   "mensajeActualizacion": null,
   "categorias": {
